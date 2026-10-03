@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+edge-on.png
+*.log
+.pytest_cache/
+.venv/
+venv/
