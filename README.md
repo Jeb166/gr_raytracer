@@ -78,5 +78,3 @@ Generate a still frame for an edge-on comparison:
 ```powershell
 py -3.13 gpu_disk_viewer_v062.py --render-width 960 --render-height 540 --start-elevation 0 --snapshot edge-on.png
 ```
-
-See [v0.6.2 notes](README_v062.md) for the current disk-intersection design and its known limitations.
