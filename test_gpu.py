@@ -176,6 +176,22 @@ class GpuParityTests(unittest.TestCase):
 
         self.assert_pixels(self.renderer.render(view), self.predicted_disk_pixels(view, shade))
 
+    def test_edge_on_rim_matches_cpu_shift_and_limb_darkening(self):
+        # Exactly edge-on, every centre-row ray that reaches r_out hits the
+        # wedge's outer rim first, so the pixel is fixed by r = r_out alone.
+        view = dataclasses.replace(self.view, color_mode=0, pitch=0.0)
+        a = self.args
+        flux = phys.disk_flux_profile(a.disk_rout, a.disk_rin)
+        frame = self.renderer.render(view)
+        worst = 0.0
+        for x in range(100, WIDTH - 99, 20):
+            _, _, b, lam = pixel_ray(view, x, HEIGHT // 2, a.camera_r)
+            g = phys.schwarzschild_g_factor(a.disk_rout, lam, a.camera_r)
+            limb = phys.limb_darkening(phys.rim_emission_cosine(a.disk_rout, b, lam))
+            expected = round(255.0 * float(phys.srgb_encode(1.0 - math.exp(-view.exposure * flux * g**4 * limb))))
+            worst = max(worst, float(np.abs(frame[HEIGHT // 2, x].astype(float) - expected).max()))
+        self.assertLessEqual(worst, 2)
+
     def test_unshifted_disk_depends_on_radius_only(self):
         view = dataclasses.replace(self.view, color_mode=0, thick=False, relativity=False,
                                    limb_darkening=False, pitch=math.radians(30.0))

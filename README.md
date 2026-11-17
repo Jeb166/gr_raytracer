@@ -75,7 +75,7 @@ Here `λ` is the photon's conserved axial angular momentum divided by its energy
 
 `T_max` defaults to 4500 K so that the shifts stay inside the visible range. Real disks are far hotter (10⁵–10⁷ K) and would look uniformly blue-white to the eye; raise it with `--tmax` or `.` to see that.
 
-**Limits.** Kerr spin and frame dragging, emission from gas plunging inside the ISCO, light returning to the disk, and volumetric radiative transfer through the disk are outside the model. The disk interior is not resolved: thickness only changes the shape of the opaque surface. A razor-thin disk viewed exactly edge-on is geometrically degenerate and invisible. The camera must stay outside the disk (`--camera-r` > `--disk-rout`).
+**Limits.** Kerr spin and frame dragging, emission from gas plunging inside the ISCO, light returning to the disk, and volumetric radiative transfer through the disk are outside the model. The disk interior is not resolved: thickness only changes the shape of the opaque surface. A razor-thin disk viewed exactly edge-on has no direct image (zero projected area); only the lensed images of its far side remain. The camera must stay outside the disk (`--camera-r` > `--disk-rout`).
 
 ## Validation and performance
 
